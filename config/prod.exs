@@ -2,10 +2,11 @@ use Mix.Config
 # XXX The configuration file is evalated at compile time,
 # and re-evaluated at runtime.
 
+log_level = String.to_atom(String.downcase(System.get_env("LOG_LEVEL") || "info"))
+
 config :logger, :console,
-  format: "$metadata[$level] $message\n",
-  metadata: [:token, :id],
-  level: :info
+  level: log_level, format: "[$date] [$time] [$level] [$metadata] $message\n",
+  metadata: [:token, :id]
 
 config :tmate, :daemon,
   hmac_key: System.get_env("DAEMON_HMAC_KEY")

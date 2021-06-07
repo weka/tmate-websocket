@@ -42,8 +42,10 @@ defmodule Tmate.Webhook do
 
   defp post_event(state, event_type, payload, num_attempts) do
     url = state.url
+    Logger.debug("Sending the following payload to webhook: #{payload}")
     case post_event_once(url, payload) do
-      :ok -> :ok
+      :ok ->
+        Logger.info("Webhook succeeded on #{url}")
       {:error, reason} ->
         if num_attempts == state.max_attempts do
           Logger.error "Webhook fail on #{url} - Dropping event :#{event_type} (#{inspect(reason)})"
