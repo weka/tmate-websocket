@@ -23,7 +23,7 @@ RUN mix distillery.release --no-tar && \
         mv _build/prod/rel/tmate/lib/tmate* _build/lib-layer
 
 ### Minimal run-time image
-FROM alpine:3.9
+FROM alpine:3.13
 
 RUN apk --no-cache add ncurses-libs openssl ca-certificates bash
 
